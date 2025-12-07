@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KKU Campus Guide - มหาวิทยาลัยขอนแก่น</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+        }
+
+        /* Header with Canvas Logo */
+        header {
+            background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        #logoCanvas {
+            display: block;
+            margin: 0 auto 1rem;
+            background: transparent;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .student-info {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        /* Navigation */
+        nav {
+            background: #8B4513;
+            padding: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav li {
+            margin: 0;
+        }
+
+        nav a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 1rem 1.5rem;
+            transition: background 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Main Content */
+        main {
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        section h2 {
+            color: #8B4513;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #A0522D;
+        }
+
+        /* Location Cards */
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .location-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .location-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .location-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            height: 200px;
+        }
+
+        .location-images img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .location-content {
+            padding: 1.5rem;
+        }
+
+        .location-content h3 {
+            color: #8B4513;
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .location-content p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Form Section */
+        .form-container {
+            background: linear-gradient(135deg, #f5f7fa 0%, #D2B48C 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #8B4513;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #A0522D;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #A0522D 0%, #8B4513 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+            }
+
+            nav a {
+                padding: 0.8rem;
+                border-bottom: 1px solid rgba(255,255,255,0.1);
+            }
+
+            .locations-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .location-images {
+                grid-template-columns: 1fr;
+                height: auto;
+            }
+
+            .location-images img {
+                height: 150px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+
+            .form-container {
+                padding: 1rem;
+            }
+
+            main {
+                padding: 1rem 0.5rem;
+            }
+        }
+
+        /* Success Message */
+        .success-message {
+            background: #4caf50;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <canvas id="logoCanvas" width="300" height="150"></canvas>
+            <h1>🎓 KKU Campus Guide</h1>
+            <p>คู่มือแนะนำสถานที่ มหาวิทยาลัยขอนแก่น</p>
+            <div class="student-info">
+                <strong>รหัสนักศึกษา:</strong> 673380508-8 | 
+                <strong>ชื่อ-สกุล:</strong> นางสาว อภัสกร สารถ้อย
+            </div>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#home">หน้าหลัก</a></li>
+                <li><a href="#locations">สถานที่</a></li>
+                <li><a href="#recommend">แนะนำสถานที่</a></li>
+                <li><a href="#about">เกี่ยวกับ</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="home">
+                <h2>🏛️ ยินดีต้อนรับสู่ มหาวิทยาลัยขอนแก่น</h2>
+                <p style="font-size: 1.1rem; color: #666; line-height: 1.8;">
+                    มหาวิทยาลัยขอนแก่น เป็นสถาบันการศึกษาชั้นนำของภาคตะวันออกเฉียงเหนือและของประเทศไทย 
+                    ก่อตั้งเมื่อปี พ.ศ. 2507 มีพื้นที่กว้างขวางและมีสถานที่สำคัญมากมาย 
+                    เว็บไซต์นี้จะพาคุณไปรู้จักกับสถานที่สำคัญต่างๆ ภายในมหาวิทยาลัย
+                </p>
+            </section>
+
+            <section id="locations">
+                <h2>📍 สถานที่สำคัญใน มข.</h2>
+                <div class="locations-grid">
+                    <!-- Location 1 -->
+                    <article class="location-card">
+                        <div class="location-images">
+                            <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=400" alt="ห้องสมุด มข.">
+                            <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?w=400" alt="ห้องสมุด มข. ภายใน">
+                        </div>
+                        <div class="location-content">
+                            <h3>📚 ห้องสมุด มข.</h3>
+                            <p>
+                                ห้องสมุด มข. เป็นแหล่งเรียนรู้กลางของมหาวิทยาลัย มีหนังสือและทรัพยากรการเรียนรู้มากมาย 
+                                พร้อมพื้นที่อ่านหนังสือที่ทันสมัย มีระบบ Wi-Fi ความเร็วสูง 
+                                และห้องศึกษาค้นคว้ากลุ่มสำหรับนักศึกษา เปิดบริการทุกวัน
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Location 2 -->
+                    <article class="location-card">
+                        <div class="location-images">
+                            <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=400" alt="สนามกีฬา">
+                            <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?w=400" alt="สนามกีฬา 2">
+                        </div>
+                        <div class="location-content">
+                            <h3>⚽ สนามกีฬา 50 พรรษา</h3>
+                            <p>
+                                สนามกีฬากลางแจ้งขนาดใหญ่ที่ทันสมัย สามารถรองรับกิจกรรมกีฬาหลากหลายประเภท 
+                                เช่น ฟุตบอล วิ่ง บาสเกตบอล มีสนามเทนนิส และลู่วิ่ง 400 เมตร 
+                                เป็นสถานที่ออกกำลังกายยอดนิยมของนักศึกษาและบุคลากร
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Location 3 -->
+                    <article class="location-card">
+                        <div class="location-images">
+                            <img src="https://images.unsplash.com/photo-1567521464027-f127ff144326?w=400" alt="โรงอาหาร">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400" alt="อาหาร">
+                        </div>
+                        <div class="location-content">
+                            <h3>🍜 โรงอาหารกลาง</h3>
+                            <p>
+                                ศูนย์รวมอาหารการกินที่หลากหลาย มีร้านอาหารมากกว่า 50 ร้าน 
+                                ทั้งอาหารไทย อาหารนานาชาติ เครื่องดื่ม และของหวาน 
+                                ราคาถูกเหมาะกับนักศึกษา มีที่นั่งกว้างขวาง พร้อมเครื่องปรับอากาศ 
+                                เปิดบริการตั้งแต่เช้าจรดค่ำ
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Location 4 -->
+                    <article class="location-card">
+                        <div class="location-images">
+                            <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=400" alt="อาคารเรียน">
+                            <img src="https://images.unsplash.com/photo-1562774053-701939374585?w=400" alt="ห้องเรียน">
+                        </div>
+                        <div class="location-content">
+                            <h3>🏫 อาคารเรียนรวม</h3>
+                            <p>
+                                อาคารเรียนหลักของมหาวิทยาลัย ออกแบบทันสมัยด้วยสถาปัตยกรรมแบบผสมผสาน 
+                                มีห้องเรียนขนาดใหญ่พร้อมอุปกรณ์การสอนครบครัน ห้องปฏิบัติการคอมพิวเตอร์ 
+                                ห้องประชุม และพื้นที่พักผ่อนสำหรับนักศึกษา มีลิฟต์และบันไดเลื่อนอำนวยความสะดวก
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Location 5 -->
+                    <article class="location-card">
+                        <div class="location-images">
+                            <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400" alt="ศูนย์คอมพิวเตอร์">
+                            <img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=400" alt="คอมพิวเตอร์">
+                        </div>
+                        <div class="location-content">
+                            <h3>💻 ศูนย์คอมพิวเตอร์</h3>
+                            <p>
+                                ศูนย์บริการเทคโนโลยีสารสนเทศที่ทันสมัย มีคอมพิวเตอร์ให้บริการมากกว่า 200 เครื่อง 
+                                พร้อมซอฟต์แวร์ที่จำเป็นสำหรับการเรียน มีบริการ Wi-Fi ความเร็วสูง 
+                                เปิดให้บริการตลอด 24 ชั่วโมงในช่วงสอบ พร้อมทีมงานคอยช่วยเหลือ
+                            </p>
+                        </div>
+                    </article>
+
+                    <!-- Location 6 -->
+                    <article class="location-card">
+                        <div class="location-images">
+                            <img src="https://images.unsplash.com/photo-1426927308491-6380b6a9936f?w=400" alt="สวนสาธารณะ">
+                            <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400" alt="ธรรมชาติ">
+                        </div>
+                        <div class="location-content">
+                            <h3>🌳 บึงสีฐาน</h3>
+                            <p>
+                                สวนสาธารณะและบึงน้ำขนาดใหญ่ใจกลางมหาวิทยาลัย เป็นปอดของ มข. 
+                                มีทางเดินเท้าสำหรับวิ่งออกกำลังกาย ม้านั่งพักผ่อนชมธรรมชาติ 
+                                เป็นสถานที่ยอดนิยมสำหรับการพักผ่อนและถ่ายรูป 
+                                พบได้มากมายในช่วงเย็นและวันหยุด
+                            </p>
+                        </div>
+                    </article>
+                </div>
+            </section>
+
+            <section id="recommend">
+                <h2>✉️ แนะนำสถานที่เพิ่มเติม</h2>
+                <div class="form-container">
+                    <div id="successMessage" class="success-message">
+                        ✅ ส่งข้อมูลสำเร็จ! ขอบคุณสำหรับการแนะนำสถานที่
+                    </div>
+                    <form id="recommendForm" action="https://api.web3forms.com/submit" method="POST">
+                        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                        <input type="hidden" name="subject" value="KKU Campus Guide - สถานที่แนะนำใหม่">
+                        
+                        <div class="form-group">
+                            <label for="placeName">ชื่อสถานที่ *</label>
+                            <input type="text" id="placeName" name="place_name" required placeholder="เช่น อาคารวิจัย หอพัก ร้านอาหาร">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">รายละเอียด *</label>
+                            <textarea id="description" name="description" required placeholder="อธิบายเกี่ยวกับสถานที่นี้..."></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageUrl1">URL รูปภาพที่ 1 *</label>
+                            <input type="url" id="imageUrl1" name="image_url_1" required placeholder="https://example.com/image1.jpg">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="imageUrl2">URL รูปภาพที่ 2 *</label>
+                            <input type="url" id="imageUrl2" name="image_url_2" required placeholder="https://example.com/image2.jpg">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="yourName">ชื่อผู้แนะนำ (ไม่บังคับ)</label>
+                            <input type="text" id="yourName" name="recommender_name" placeholder="ชื่อของคุณ">
+                        </div>
+
+                        <button type="submit" class="submit-btn">📤 ส่งข้อมูล</button>
+                    </form>
+                </div>
+            </section>
+
+            <section id="about">
+                <h2>ℹ️ เกี่ยวกับเว็บไซต์</h2>
+                <p style="font-size: 1.1rem; color: #666; line-height: 1.8;">
+                    เว็บไซต์นี้พัฒนาขึ้นเพื่อเป็นคู่มือแนะนำสถานที่สำคัญภายในมหาวิทยาลัยขอนแก่น 
+                    สำหรับนักศึกษาใหม่ ผู้ปกครอง และผู้สนใจทั่วไป 
+                    พัฒนาโดยใช้เทคโนโลยี HTML5, CSS3, Canvas และ Responsive Design 
+                    เพื่อให้รองรับการใช้งานบนทุกอุปกรณ์
+                </p>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2024 KKU Campus Guide | Khon Kaen University</p>
+            <p>พัฒนาโดย: [ชื่อของคุณ] | รหัส: 663450xxx-x</p>
+        </footer>
+    </div>
+
+    <script>
+        // Canvas Logo with Animation
+        const canvas = document.getElementById('logoCanvas');
+        const ctx = canvas.getContext('2d');
+        let angle = 0;
+        let scale = 1;
+        let growing = true;
+
+        function drawLogo() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.save();
+            ctx.translate(canvas.width / 2, canvas.height / 2);
+            ctx.rotate(angle);
+            ctx.scale(scale, scale);
+
+            // Draw KKU Letters with gradient
+            const gradient = ctx.createLinearGradient(-60, -30, 60, 30);
+            gradient.addColorStop(0, '#FFD700');
+            gradient.addColorStop(0.5, '#FFA500');
+            gradient.addColorStop(1, '#FF6347');
+
+            ctx.fillStyle = gradient;
+            ctx.strokeStyle = '#fff';
+            ctx.lineWidth = 3;
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            
+            // Add shadow
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.3)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 3;
+            ctx.shadowOffsetY = 3;
+            
+            ctx.fillText('KKU', 0, 0);
+            ctx.strokeText('KKU', 0, 0);
+
+            // Draw decorative circles
+            ctx.shadowBlur = 0;
+            for (let i = 0; i < 8; i++) {
+                const circleAngle = (Math.PI * 2 / 8) * i + angle * 2;
+                const x = Math.cos(circleAngle) * 80;
+                const y = Math.sin(circleAngle) * 50;
+                
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = `hsl(${i * 45 + angle * 50}, 80%, 60%)`;
+                ctx.fill();
+            }
+
+            ctx.restore();
+
+            // Animation
+            angle += 0.02;
+            
+            if (growing) {
+                scale += 0.005;
+                if (scale >= 1.1) growing = false;
+            } else {
+                scale -= 0.005;
+                if (scale <= 0.9) growing = true;
+            }
+
+            requestAnimationFrame(drawLogo);
+        }
+
+        drawLogo();
+
+        // Form Submission Handler
+        const form = document.getElementById('recommendForm');
+        const successMessage = document.getElementById('successMessage');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    successMessage.style.display = 'block';
+                    form.reset();
+                    
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }
+            } catch (error) {
+                alert('เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง');
+            }
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
